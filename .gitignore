@@ -1,3 +1,4 @@
 data/scryfall_cards.json
 .venv/
 backend/__pycache__
+vectorstore/*
