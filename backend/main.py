@@ -26,7 +26,7 @@ def ask(q: Query):
     prompt = f"""You are an expert Magic: the Gathering assistant.
 Use these cards as context:\n{context}\n\nAnswer: {q.question}"""
     
-    response = ollama.chat(model="llama3.2",
+    response = ollama.chat(model="gemma4:e4b",
                            messages=[{"role": "user", "content": prompt}])
     return {
         "answer": response["message"]["content"],
