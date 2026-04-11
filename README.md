@@ -49,6 +49,13 @@ python backend/ingest.py
 
 ## Running
 
+**Ollama** (run once):
+```bash
+ollama serve
+# Activates ollama's local capabilities
+```
+
+
 **Backend** (keep this terminal open):
 ```bash
 uvicorn backend.main:app --reload --port 8000
@@ -57,3 +64,7 @@ uvicorn backend.main:app --reload --port 8000
 **Frontend**: open `frontend/index.html` directly in a browser — no server needed.
 
 ---
+
+## Who?
+
+[This guy. 🐒](https://scryfall.com/card/mh2/315/ragavan-nimble-pilferer)
