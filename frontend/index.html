@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- chart.js: uncomment when renderColorChart is implemented -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+</head>
+<body>
+  <input id="q" placeholder="Ask about MTG cards..." />
+  <button id="btn" onclick="ask()">Ask</button>
+  <div id="status"></div>
+  <div id="answer"></div>
+  <!-- <canvas id="chart"></canvas> -->
+
+  <script>
+    async function ask() {
+      const btn = document.getElementById("btn");
+      const status = document.getElementById("status");
+      const answer = document.getElementById("answer");
+
+      btn.disabled = true;
+      answer.innerText = "";
+      status.innerText = "Thinking...";
+
+      try {
+        const res = await fetch("http://localhost:8000/ask", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({ question: document.getElementById("q").value })
+        });
+        const data = await res.json();
+        answer.innerText = data.answer;
+      } catch (e) {
+        answer.innerText = "Error: could not reach the backend.";
+      } finally {
+        status.innerText = "";
+        btn.disabled = false;
+      }
+    }
+    // TODO: implement renderColorChart and uncomment
+    // fetch("http://localhost:8000/cards/stats")
+    //   .then(r => r.json())
+    //   .then(data => renderColorChart(data.metadatas));
+  </script>
+</body>
+</html>
