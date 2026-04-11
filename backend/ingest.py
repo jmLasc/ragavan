@@ -55,7 +55,7 @@ def build_doc(card):
 
 
 BATCH = 256
-SKIP_LAYOUTS = {"art_series", "token", "emblem", "scheme", "vanguard", "planar"}
+SKIP_LAYOUTS = {"art_series", "token", "emblem", "scheme", "vanguard", "planar", "memorabilia"}
 for i in tqdm(range(0, len(cards), BATCH)):
     batch = cards[i:i+BATCH]
     ids, docs, metadatas = [], [], []
@@ -80,8 +80,9 @@ for i in tqdm(range(0, len(cards), BATCH)):
             "digital":   str(card.get("digital", False)),
         })
 
+    MAX_CHARS = 1500  # ~512 tokens for mxbai-embed-large
     embeddings = [
-        ollama.embeddings(model="mxbai-embed-large", prompt=doc)["embedding"]
+        ollama.embeddings(model="mxbai-embed-large", prompt=doc[:MAX_CHARS])["embedding"]
         for doc in docs
     ]
     collection.upsert(ids=ids, documents=docs,
