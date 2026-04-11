@@ -78,6 +78,7 @@ for i in tqdm(range(0, len(cards), BATCH)):
             "rarity":    card.get("rarity", ""),
             "set_name":  card.get("set_name", ""),
             "digital":   str(card.get("digital", False)),
+            "set_type":  card.get("set_type", ""),
         })
 
     MAX_CHARS = 1500  # ~512 tokens for mxbai-embed-large
