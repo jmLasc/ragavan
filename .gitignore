@@ -1,2 +1,3 @@
 data/scryfall_cards.json
 .venv/
+backend/__pycache__
