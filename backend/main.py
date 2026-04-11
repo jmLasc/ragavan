@@ -19,7 +19,13 @@ class Query(BaseModel):
 
 @app.post("/ask")
 def ask(q: Query):
-    embedding = ollama.embeddings(model="mxbai-embed-large", prompt=q.question)["embedding"]
+    rewrite = ollama.chat(model="gemma4:e4b", messages=[{"role": "user", "content":
+        f"You are an MTG expert. Rewrite this query as a description of what "
+        f"the oracle text of relevant cards would say. Be concise, no explanation.\n"
+        f"Query: {q.question}"}])
+    search_query = rewrite["message"]["content"].strip()
+
+    embedding = ollama.embeddings(model="mxbai-embed-large", prompt=search_query)["embedding"]
     results = collection.query(query_embeddings=[embedding], n_results=q.n_results)
     
     context = "\n".join(results["documents"][0])
