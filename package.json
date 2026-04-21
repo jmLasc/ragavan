@@ -1,0 +1,10 @@
+{
+  "name": "ragavan",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --names \"backend,frontend,ollama\" --prefix-colors \"cyan,magenta,yellow\" \"uvicorn backend.main:app --reload --port 8000\" \"pnpm --prefix frontend dev\" \"ollama serve\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

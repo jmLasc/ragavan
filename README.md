@@ -9,6 +9,7 @@ A Magic: The Gathering Q&A app powered by local LLMs and vector search. Ask natu
 ## Prerequisites
 
 - **Python 3.11+**
+- **Node.js 18+** and **[pnpm](https://pnpm.io)**
 - **[Ollama](https://ollama.com)** installed and running locally
 - Required Ollama models:
   ```
@@ -27,18 +28,23 @@ python -m venv .venv
 # source .venv/bin/activate  # macOS/Linux
 ```
 
-**2. Install dependencies**
+**2. Install Python dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-**3. Download Scryfall card data**
+**3. Install frontend dependencies**
+```bash
+cd frontend && pnpm install && cd ..
+```
+
+**4. Download Scryfall card data**
 ```bash
 bash fetch_data.sh
 # Saves oracle card data to data/scryfall_cards.json (~100MB)
 ```
 
-**4. Build the vector store**
+**5. Build the vector store**
 ```bash
 python backend/ingest.py
 # Embeds all cards into ChromaDB under vectorstore/
@@ -49,19 +55,28 @@ python backend/ingest.py
 
 ## Running
 
-**Ollama** (run once):
+**All at once** (backend + frontend + ollama):
 ```bash
-ollama serve
-# Activates ollama's local capabilities
+pnpm dev
 ```
 
+Or start each separately in its own terminal:
 
-**Backend** (keep this terminal open):
+**Backend**
 ```bash
 uvicorn backend.main:app --reload --port 8000
 ```
 
-**Frontend**: open `frontend/index.html` directly in a browser — no server needed.
+**Frontend**
+```bash
+cd frontend && pnpm dev
+# Runs at http://localhost:5173
+```
+
+**Ollama** (if not already running as a service)
+```bash
+ollama serve
+```
 
 ---
 
