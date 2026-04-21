@@ -2,3 +2,8 @@ data/scryfall_cards.json
 .venv/
 backend/__pycache__
 vectorstore/*
+node_modules/
+pnpm-lock.yaml
+frontend/node_modules/
+frontend/dist/
+frontend_index_old.html
